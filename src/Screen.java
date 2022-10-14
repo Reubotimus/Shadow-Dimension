@@ -1,6 +1,9 @@
 import bagel.Font;
 import bagel.Input;
 
+/**
+ * represents all screens in application
+ */
 public abstract class Screen {
     // font is used to display text in game
     protected final int STANDARD_FONT_SIZE = 75;

@@ -4,6 +4,9 @@ import bagel.util.Rectangle;
 
 import java.util.List;
 
+/**
+ * Fire entity, is shot by enemies
+ */
 public class Fire extends Entity{
     private static final Image demonFire = new Image("res/demon/demonFire.png");
     private static final Image navecFire = new Image("res/navec/navecFire.png");
@@ -15,6 +18,12 @@ public class Fire extends Entity{
     private Rectangle enemyRectangle;
     private boolean destroyed = false;
 
+    /**
+     * gets the x value based on the enemies rectangle and the quadrant that the player is in
+     * @param rect the rectangle of the enemy that shot the fire
+     * @param quadrant the quadrant that the player is in relative to the enemy, the fire points in this direction
+     * @return the x value that the fire will start at
+     */
     private static double getX(Rectangle rect, Quadrant quadrant) {
         if (quadrant == Quadrant.SE) {
             return rect.right();
@@ -27,6 +36,12 @@ public class Fire extends Entity{
         }
     }
 
+    /**
+     * gets the y value based on the enemies rectangle and the quadrant that the player is in
+     * @param rect the rectangle of the enemy that shot the fire
+     * @param quadrant the quadrant that the player is in relative to the enemy, the fire points in this direction
+     * @return the y value that the fire will start at
+     */
     private static double getY(Rectangle rect, Quadrant quadrant) {
         if (quadrant == Quadrant.SE) {
             return rect.bottom();
@@ -39,6 +54,12 @@ public class Fire extends Entity{
         }
     }
 
+    /**
+     * creates a new fire
+     * @param rectangle the rectangle of the Enemy that shot the fire
+     * @param isDemon represents if the fire is from a Demon or Navec
+     * @param quadrant the quadrant that the player is in relative to the enemy, the fire points in this direction
+     */
     public Fire(Rectangle rectangle, boolean isDemon, Quadrant quadrant) {
         super(Fire.demonFire, getX(rectangle, quadrant), getY(rectangle, quadrant));
         this.isDemon = isDemon;
@@ -65,11 +86,9 @@ public class Fire extends Entity{
     }
 
 
-
-    public void destroy(List<Entity> entities) {
-        entities.remove(this);
-        this.destroyed = true;
-    }
+    /**
+     * draws the fire with the rotation factored in
+     */
     @Override
     public void draw() {
         if (!this.destroyed) {
@@ -78,11 +97,21 @@ public class Fire extends Entity{
         }
     }
 
+    /**
+     * draws the fire
+     * @param input the user input
+     * @param entities all other entities within level
+     */
     @Override
     public void update(Input input, List<Entity> entities) {
         draw();
     }
 
+    /**
+     * sets the position and rotation of the fire based on the enemy that shot the fire and the quadrant the player is in
+     * @param rectangle the rectangle of the enemy that shot the fire
+     * @param quadrant the quadrant that the player is in relative to the enemy, the fire points in this direction
+     */
     public void changeQuadrant(Rectangle rectangle, Quadrant quadrant) {
         super.rectangle.moveTo(new Point(getX(rectangle, quadrant), getY(rectangle, quadrant)));
         if (quadrant == Quadrant.NE) {
@@ -99,10 +128,16 @@ public class Fire extends Entity{
         }
     }
 
+    /**
+     * @return the quadrant the player is in relative to the enemy and that this fire is pointing towards
+     */
     public Quadrant getQuadrant() {
         return quadrant;
     }
 
+    /**
+     * @return if the fire is shot from a demon or a navec
+     */
     public boolean isDemon() {
         return isDemon;
     }

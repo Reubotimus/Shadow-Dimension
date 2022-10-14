@@ -5,11 +5,21 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 
+/**
+ * Represents the interactive game part of application
+ * includes a list of entities read in from a csv file
+ */
 public class Level extends Screen {
     public Player player;
+    public Navec navec = null;
     public ArrayList<Entity> entities = new ArrayList<Entity>();
     public static Image background;
 
+    /**
+     * creates a new level using a csv file
+     * @param levelNum an int representing the level number,
+     *                 number must match the name of the csv file for the level
+     */
     public Level(int levelNum) {
         int TYPE_INDEX = 0, X_INDEX = 1, Y_INDEX = 2;
         background = new Image("res/background" + levelNum + ".png");
@@ -48,9 +58,10 @@ public class Level extends Screen {
                 }
 
                 if (cells[TYPE_INDEX].equals("Navec")) {
-                    this.entities.add(new Navec(
+                    this.navec = new Navec(
                             Integer.parseInt(cells[X_INDEX]),
-                            Integer.parseInt(cells[Y_INDEX])));
+                            Integer.parseInt(cells[Y_INDEX]));
+                    this.entities.add(this.navec);
                     continue;
                 }
 
@@ -77,6 +88,11 @@ public class Level extends Screen {
         }
     }
 
+    /**
+     * updates the level by checking for level commands and updating all entities
+     * @param input the user input
+     * @return returns the screen for the next frame
+     */
     public Screen update(Input input) {
 
         if (input.wasPressed(Keys.W)) {
@@ -97,8 +113,12 @@ public class Level extends Screen {
         }
 
         // if the player is within bounds of exit portals, wins game
-        if (player.getRectangle().left() >= 950 && player.getRectangle().top() >= 670) {
+        if (this.navec == null && player.getRectangle().left() >= 950 && player.getRectangle().top() >= 670) {
             return new Level(1);
+        }
+
+        if (this.navec != null && navec.healthBar.getHealth() == 0) {
+            return new TextScreen("Congratulations!");
         }
 
         // displays background, all entities and player

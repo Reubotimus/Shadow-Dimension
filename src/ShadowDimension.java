@@ -6,17 +6,19 @@ import java.util.ArrayList;
 
 
 /**
- * Please enter your name below
- * Reuben Cook 1270283
+ * Used to represent entire application
+ * @author Reuben Cook 1270283
+ *
  */
-
 public class ShadowDimension extends AbstractGame {
     private final static int WINDOW_WIDTH = 1024;
     private final static int WINDOW_HEIGHT = 768;
     private final static String GAME_TITLE = "SHADOW DIMENSION";
     private Screen screen;
 
-
+    /**
+     * launches game
+     */
     public ShadowDimension(){
         super(WINDOW_WIDTH, WINDOW_HEIGHT, GAME_TITLE);
         screen = new StartScreen();

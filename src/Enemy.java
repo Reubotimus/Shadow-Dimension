@@ -174,7 +174,7 @@ public abstract class Enemy extends Entity {
                     printDamage(player);
                 }
             } else if (this.fire != null) {
-                this.fire.destroy(entities);
+                entities.remove(this.fire);
                 this.fire = null;
             }
         }
