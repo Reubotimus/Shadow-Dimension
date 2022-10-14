@@ -23,10 +23,11 @@ public class Navec extends Enemy {
         super(Navec.leftIm, startingX, startingY, 150,
                 new State(0, 3000, 0),
                 true,
-                new HealthBar(40, 15, startingX, startingY - 6),
+                new HealthBar(2 * 40, 15, startingX, startingY - 6),
                 Navec.invincibleLeftIm, Navec.invincibleRightIm, Navec.leftIm, Navec.rightIm);
         this.direction = Direction.values()[rand.nextInt(Direction.values().length)];
         super.speed = 0.2 + (0.5 * rand.nextDouble());
+        super.attackRadius = 200;
     }
 
     /**
