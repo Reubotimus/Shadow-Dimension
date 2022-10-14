@@ -102,4 +102,8 @@ public class Fire extends Entity{
     public Quadrant getQuadrant() {
         return quadrant;
     }
+
+    public boolean isDemon() {
+        return isDemon;
+    }
 }

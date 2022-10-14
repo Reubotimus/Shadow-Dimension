@@ -97,7 +97,7 @@ public class Level extends Screen {
         }
 
         // if the player is within bounds of exit portals, wins game
-        if (player.getRectangle().left() >= 950 && player.getRectangle().bottom() >= 670) {
+        if (player.getRectangle().left() >= 950 && player.getRectangle().top() >= 670) {
             return new Level(1);
         }
 

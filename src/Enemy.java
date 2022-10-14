@@ -72,9 +72,17 @@ public abstract class Enemy extends Entity {
 
     }
 
+    protected abstract void printDamage(Entity entity);
+
     private void move(List<Entity> entities) {
         for (Entity entity : entities) {
-            if ((entity instanceof Sinkhole || entity instanceof Tree) && super.rectangle.intersects(entity.rectangle)) {
+            if ((super.rectangle.left() < Entity.topLeft.x ||
+                        super.rectangle.right() > Entity.bottomRight.x ||
+                        super.rectangle.top() < Entity.topLeft.y ||
+                        super.rectangle.bottom() > Entity.bottomRight.y) ||
+                    ((entity instanceof Sinkhole || entity instanceof Tree) &&
+                            super.rectangle.intersects(entity.rectangle))) {
+
                 switch (this.direction) {
                     case NORTH -> {
                         this.direction = Enemy.Direction.SOUTH;
@@ -143,7 +151,8 @@ public abstract class Enemy extends Entity {
 
                 shootFire(player, entities);
 
-                if (player.state.isAttacking() && !this.state.isInvincible()) {
+                if (player.state.isAttacking() && !this.state.isInvincible() &&
+                        super.rectangle.intersects(player.rectangle)) {
                     this.healthBar.removeHealth(player.getDamage());
                     this.state.invincible();
                     if (this.healthBar.getHealth() == 0) {
@@ -162,6 +171,7 @@ public abstract class Enemy extends Entity {
                             }
                         }
                     }
+                    printDamage(player);
                 }
             } else if (this.fire != null) {
                 this.fire.destroy(entities);

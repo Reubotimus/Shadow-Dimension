@@ -21,4 +21,13 @@ public class Navec extends Enemy {
         super.speed = 0.2 + (0.5 * rand.nextDouble());
     }
 
+    @Override
+    protected void printDamage(Entity entity) {
+        System.out.println("Fae inflicts " +
+                entity.damage +
+                " damage points on Navec. Navec’s current health: " +
+                super.healthBar.getHealth() + "/" +
+                super.healthBar.getMAX_HEALTH());
+    }
+
 }
