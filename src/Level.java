@@ -56,12 +56,12 @@ public class Level extends Screen {
 
 
                 if (cells[TYPE_INDEX].equals("TopLeft")) {
-                    //player.setTopLeft(new Point(Integer.parseInt(cells[X_INDEX]), Integer.parseInt(cells[Y_INDEX])));
+                    Entity.setTopLeft(new Point(Integer.parseInt(cells[X_INDEX]), Integer.parseInt(cells[Y_INDEX])));
                     continue;
                 }
 
                 if (cells[TYPE_INDEX].equals("BottomRight")) {
-                    //player.setBottomRight(new Point(Integer.parseInt(cells[X_INDEX]), Integer.parseInt(cells[Y_INDEX])));
+                    Entity.setBottomRight(new Point(Integer.parseInt(cells[X_INDEX]), Integer.parseInt(cells[Y_INDEX])));
                     continue;
                 }
 
@@ -81,6 +81,14 @@ public class Level extends Screen {
 
         if (input.wasPressed(Keys.W)) {
             return new Level(1);
+        }
+
+        if (input.wasPressed(Keys.L)) {
+            Entity.increaseTimescale();
+        }
+
+        if (input.wasPressed(Keys.K)) {
+            Entity.decreaseTimescale();
         }
 
         // if the player no longer has health, loses game

@@ -123,16 +123,16 @@ public abstract class Enemy extends Entity {
         }
         switch (this.direction) {
             case NORTH -> {
-                super.translate(0, -Entity.getTimescale() * super.speed);
+                super.translate(0, -(Math.pow(1.5, Entity.getTimescale())) * super.speed);
             }
             case EAST -> {
-                super.translate(Entity.getTimescale() * super.speed, 0);
+                super.translate((Math.pow(1.5, Entity.getTimescale())) * super.speed, 0);
             }
             case SOUTH -> {
-                super.translate(0, Entity.getTimescale() * super.speed);
+                super.translate(0, (Math.pow(1.5, Entity.getTimescale())) * super.speed);
             }
             case WEST -> {
-                super.translate(-Entity.getTimescale() * super.speed, 0);
+                super.translate(-(Math.pow(1.5, Entity.getTimescale())) * super.speed, 0);
             }
         }
     }
