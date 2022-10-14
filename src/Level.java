@@ -114,7 +114,7 @@ public class Level extends Screen {
 
         // if the player is within bounds of exit portals, wins game
         if (this.navec == null && player.getRectangle().left() >= 950 && player.getRectangle().top() >= 670) {
-            return new Level(1);
+            return new IntermediateScreen();
         }
 
         if (this.navec != null && navec.healthBar.getHealth() == 0) {
