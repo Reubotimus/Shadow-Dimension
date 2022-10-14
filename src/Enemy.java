@@ -77,9 +77,9 @@ public abstract class Enemy extends Entity {
     private void move(List<Entity> entities) {
         for (Entity entity : entities) {
             if ((super.rectangle.left() < Entity.topLeft.x ||
-                        super.rectangle.right() > Entity.bottomRight.x ||
+                        super.rectangle.left() > Entity.bottomRight.x ||
                         super.rectangle.top() < Entity.topLeft.y ||
-                        super.rectangle.bottom() > Entity.bottomRight.y) ||
+                        super.rectangle.top() > Entity.bottomRight.y) ||
                     ((entity instanceof Sinkhole || entity instanceof Tree) &&
                             super.rectangle.intersects(entity.rectangle))) {
 
