@@ -33,6 +33,28 @@ public class Level extends Screen {
                     continue;
                 }
 
+                if (cells[TYPE_INDEX].equals("Demon")) {
+                    this.entities.add(new Demon(
+                            Integer.parseInt(cells[X_INDEX]),
+                            Integer.parseInt(cells[Y_INDEX])));
+                    continue;
+                }
+
+                if (cells[TYPE_INDEX].equals("Tree")) {
+                    this.entities.add(new Tree(
+                            Integer.parseInt(cells[X_INDEX]),
+                            Integer.parseInt(cells[Y_INDEX])));
+                    continue;
+                }
+
+                if (cells[TYPE_INDEX].equals("Navec")) {
+                    this.entities.add(new Navec(
+                            Integer.parseInt(cells[X_INDEX]),
+                            Integer.parseInt(cells[Y_INDEX])));
+                    continue;
+                }
+
+
                 if (cells[TYPE_INDEX].equals("TopLeft")) {
                     //player.setTopLeft(new Point(Integer.parseInt(cells[X_INDEX]), Integer.parseInt(cells[Y_INDEX])));
                     continue;
@@ -46,6 +68,7 @@ public class Level extends Screen {
                 if (cells[TYPE_INDEX].equals("Fae")) {
                     this.player = new Player(Integer.parseInt(cells[X_INDEX]),
                             Integer.parseInt(cells[Y_INDEX]));
+                    this.entities.add(0, this.player);
                     continue;
                 }
             }
@@ -55,6 +78,11 @@ public class Level extends Screen {
     }
 
     public Screen update(Input input) {
+
+        if (input.wasPressed(Keys.W)) {
+            return new Level(1);
+        }
+
         // if the player no longer has health, loses game
         if (player.getHealthBar().getHealth() <= 0) {
             return new TextScreen("GAME OVER");
@@ -62,16 +90,16 @@ public class Level extends Screen {
 
         // if the player is within bounds of exit portals, wins game
         if (player.getRectangle().left() >= 950 && player.getRectangle().bottom() >= 670) {
-            return new TextScreen("CONGRATULATIONS");
+            return new Level(1);
         }
 
         // displays background, all entities and player
         background.draw(Window.getWidth()/2.0, Window.getHeight()/2.0);
-        for (Entity entity: this.entities) {
-            entity.update(input, entities);
+        for (int i = 0; i < entities.size(); i++) {
+            if (entities.get(i) != null) {
+                entities.get(i).update(input, entities);
+            }
         }
-        player.update(input, this.entities);
-        player.draw();
         return this;
     }
 }
